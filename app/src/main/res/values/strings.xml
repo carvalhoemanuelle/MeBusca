@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MeBusca</string>
+    <string name="txtSearch">Pesquise no MeBusca</string>
+    <string name="textBtnSearch">Pesquisar</string>
+</resources>
