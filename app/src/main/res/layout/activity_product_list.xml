@@ -8,29 +8,45 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.MeBusca.AppBarOverlay"
         tools:ignore="MissingConstraints">
 
-        <androidx.appcompat.widget.Toolbar
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:background="@drawable/rounded_edittext"
+            android:drawablePadding="6dp"
+            android:hint="@string/txtSearch"
+            android:inputType="text"
+            android:padding="12dp"
+            app:drawableStartCompat="@drawable/ic_launcher_search"/>
+
+        <!--  <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/yellow"
-            app:popupTheme="@style/Theme.MeBusca.PopupOverlay" />
+            app:popupTheme="@style/Theme.MeBusca.PopupOverlay" />-->
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_all_products"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_all_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/row_product" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
