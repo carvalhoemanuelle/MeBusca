@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/layout/content_product_list2.xml" value="0.4244791666666667" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.4244791666666667" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.4244791666666667" />
+        <entry key="app/src/main/res/layout/row_product.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.13958333333333334" />
       </map>
     </option>

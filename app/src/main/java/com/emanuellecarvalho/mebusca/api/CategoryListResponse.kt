@@ -1,4 +1,4 @@
-package com.emanuellecarvalho.mebusca
+package com.emanuellecarvalho.mebusca.api
 
 import com.google.gson.annotations.SerializedName
 

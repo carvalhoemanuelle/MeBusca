@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.emanuellecarvalho.mebusca.api.CategoryListResponse
+import com.emanuellecarvalho.mebusca.api.MeliApiClient
 import com.emanuellecarvalho.mebusca.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,12 +15,16 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //instanciando a viewModel
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         //Esconde a barra de navegação
         supportActionBar?.hide()

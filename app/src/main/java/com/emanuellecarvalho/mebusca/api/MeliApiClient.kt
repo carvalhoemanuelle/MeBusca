@@ -1,4 +1,4 @@
-package com.emanuellecarvalho.mebusca
+package com.emanuellecarvalho.mebusca.api
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
