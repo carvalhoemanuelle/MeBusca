@@ -9,14 +9,14 @@ import kotlinx.parcelize.Parceler
 @Parcelize
 data class Product(
     var product_name: String,
-    var product_price: Double,
+    var product_price: Float,
     var product_description: String,
     var product_image: String,
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
-        parcel.readDouble(),
+        parcel.readFloat(),
         parcel.readString().toString(),
         parcel.readString().toString()
     )
@@ -25,7 +25,7 @@ data class Product(
 
         override fun Product.write(parcel: Parcel, flags: Int) {
             parcel.writeString(product_name)
-            parcel.writeDouble(product_price)
+            parcel.writeFloat(product_price)
             parcel.writeString(product_description)
             parcel.writeString(product_image)
         }
@@ -36,6 +36,7 @@ data class Product(
     }
 }
 
+/*
 fun listaTeste(): MutableList<Product> {
     val bola = Product(
         "Bola de futebol",
@@ -81,6 +82,7 @@ fun listaTeste(): MutableList<Product> {
     return mutableListOf(bola, bolaFutebol, bolaBasquete, bolaVolei, bolaBasqueteB, bolaVoleiC)
 }
 
+*/
 
 
 

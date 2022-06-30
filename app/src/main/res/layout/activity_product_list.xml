@@ -14,6 +14,11 @@
         android:theme="@style/Theme.MeBusca.AppBarOverlay"
         tools:ignore="MissingConstraints">
 
+      <!--  <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_menu" />-->
+
         <EditText
             android:id="@+id/edit_search"
             android:layout_width="match_parent"
@@ -22,18 +27,20 @@
             android:background="@drawable/rounded_edittext"
             android:drawablePadding="6dp"
             android:hint="@string/txtSearch"
+            android:textColorHint="@color/gray"
             android:inputType="text"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/gray"
             android:padding="12dp"
+            android:imeOptions="actionSearch"
             app:drawableStartCompat="@drawable/ic_launcher_search"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+    <!--    <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnBusca"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="buscar"
             android:textColor="@color/white"
-            android:background="@color/purple_700"/>
+            android:background="@color/purple_700"/>-->
 
         <!--  <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -45,17 +52,17 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_all_products"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/row_product" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_all_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/row_product" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,6 +34,7 @@ class ProductAdapter(private val products: MutableList<Product>) : RecyclerView.
              txtName.text = product.product_name
              txtPrice.text = product.product_price.toString()
 
+
          }
     }
 }
