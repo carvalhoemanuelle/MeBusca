@@ -10,8 +10,9 @@ import kotlinx.parcelize.Parceler
 data class Product(
     var product_name: String,
     var product_price: Float,
-    var product_description: String,
     var product_image: String,
+    var product_description: String,
+
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -26,8 +27,8 @@ data class Product(
         override fun Product.write(parcel: Parcel, flags: Int) {
             parcel.writeString(product_name)
             parcel.writeFloat(product_price)
-            parcel.writeString(product_description)
             parcel.writeString(product_image)
+            parcel.writeString(product_description)
         }
 
         override fun create(parcel: Parcel): Product {
