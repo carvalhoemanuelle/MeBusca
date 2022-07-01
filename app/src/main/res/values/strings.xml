@@ -2,6 +2,7 @@
     <string name="app_name">MeBusca</string>
     <string name="txtSearch">Pesquise no MeBusca</string>
     <string name="textBtnSearch">Pesquisar</string>
+    <string name="textAdicionarFavoritos">Adicionar aos favoritos</string>
     <string name="textItemDescription">
       Descrição\n\n
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -14,4 +15,5 @@
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
     </string>
+
 </resources>

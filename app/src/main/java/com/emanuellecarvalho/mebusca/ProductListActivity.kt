@@ -114,7 +114,7 @@ class ProductListActivity : AppCompatActivity() {
             for (productAPI in responseAPI) {
                 val produto = Product(
                     productAPI.item.item_title,
-                    productAPI.item.item_price, productAPI.item.item_thumbnail, ""
+                    productAPI.item.item_price, "", productAPI.item.item_thumbnail
                 )
                 products.add(produto)
             }

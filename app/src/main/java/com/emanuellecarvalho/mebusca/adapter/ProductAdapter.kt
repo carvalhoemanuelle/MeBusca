@@ -3,10 +3,12 @@ package com.emanuellecarvalho.mebusca.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emanuellecarvalho.mebusca.Product
 import com.emanuellecarvalho.mebusca.R
+import com.squareup.picasso.Picasso
 
 class ProductAdapter(private val products: MutableList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
@@ -29,10 +31,14 @@ class ProductAdapter(private val products: MutableList<Product>) : RecyclerView.
 
      class ProductViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
          fun bind(product: Product) {
-             val txtName = itemView.findViewById<TextView>(R.id.text_product_list);
-             val txtPrice = itemView.findViewById<TextView>(R.id.text_price_product);
+             val txtName:TextView = itemView.findViewById(R.id.text_product_list)
+             val txtPrice: TextView = itemView.findViewById(R.id.text_price_product)
+             val imgProduct: ImageView = itemView.findViewById(R.id.image_product)
              txtName.text = product.product_name
-             txtPrice.text = product.product_price.toString()
+             txtPrice.text = "R$ " + product.product_price.toString()
+             Picasso.get().load(product.product_image).into(imgProduct)
+
+             //Picasso.with(Context).setLoggingEnabled(true)
 
 
          }

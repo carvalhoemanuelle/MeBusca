@@ -13,7 +13,7 @@ class ItemProductBodyResponse {
     @SerializedName("price")
     var item_price: Float = 0.0F
 
-    @SerializedName("thumbnail")
+    @SerializedName("secure_thumbnail")
     var item_thumbnail: String = ""
 
 

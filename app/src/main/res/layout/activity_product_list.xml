@@ -14,11 +14,6 @@
         android:theme="@style/Theme.MeBusca.AppBarOverlay"
         tools:ignore="MissingConstraints">
 
-      <!--  <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_menu" />-->
-
         <EditText
             android:id="@+id/edit_search"
             android:layout_width="match_parent"
@@ -33,14 +28,6 @@
             android:padding="12dp"
             android:imeOptions="actionSearch"
             app:drawableStartCompat="@drawable/ic_launcher_search"/>
-
-    <!--    <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnBusca"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="buscar"
-            android:textColor="@color/white"
-            android:background="@color/purple_700"/>-->
 
         <!--  <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
