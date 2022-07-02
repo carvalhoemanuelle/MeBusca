@@ -52,6 +52,10 @@ class ProductListActivity : AppCompatActivity() {
 
     }
 
+    fun onClickItem(product: Product) {
+        println("Clicou")
+    }
+
     fun bestSellersByCategory(categoryId: String) {
         val service = MeliApiClient.createCategoryService()
 
@@ -118,7 +122,11 @@ class ProductListActivity : AppCompatActivity() {
                 )
                 products.add(produto)
             }
-            binding.recyclerAllProducts.adapter = ProductAdapter(products)
+            binding.recyclerAllProducts.adapter = ProductAdapter(products) { product ->
+                onClickItem(
+                    product
+                )
+            }
             binding.recyclerAllProducts.layoutManager = LinearLayoutManager(this)
 
         }
