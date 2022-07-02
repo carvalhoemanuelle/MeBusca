@@ -24,8 +24,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
+
     <TextView
-        android:id="@+id/text_product_list"
+        android:id="@+id/text_product_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
@@ -38,8 +46,9 @@
         tools:layout_editor_absoluteX="22dp" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="343dp"
-        android:layout_height="275dp"
+        android:id="@+id/image_product_detail"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="118dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +58,7 @@
         tools:src="@drawable/car_photo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_product_price_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
@@ -66,6 +75,7 @@
         app:layout_constraintVertical_bias="0.616" />
 
     <ImageView
+        android:id="@+id/image_add_favorites_products"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/heart_shape"
@@ -77,7 +87,7 @@
         app:layout_constraintVertical_bias="0.671" />
 
     <TextView
-        android:id="@+id/textFavorites"
+        android:id="@+id/text_add_favorites_products"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
@@ -90,6 +100,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/text_product_description_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="512dp"

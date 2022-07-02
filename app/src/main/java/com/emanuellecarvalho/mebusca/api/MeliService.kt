@@ -27,8 +27,8 @@ interface CategoryService {
     fun itemList(@Query("ids") ids: String): Call<List<ItemProductResponse>>
 
     @Headers("Authorization: Bearer $ACCESS_TOKEN")
-    @GET("items/{category_id}/description")
-    fun itemDescription(@Path("category_id") description: String): Call<ItemProductDescriptionResponse>
+    @GET("items/{product_id}/description")
+    fun itemDescription(@Path("product_id") productId: String): Call<ItemProductDescriptionResponse>
 
 
 }

@@ -8,5 +8,4 @@ class ItemProductDescriptionResponse {
     var item_description: String = ""
 
 
-
 }

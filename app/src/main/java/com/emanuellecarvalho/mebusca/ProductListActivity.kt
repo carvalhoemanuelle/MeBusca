@@ -1,5 +1,6 @@
 package com.emanuellecarvalho.mebusca
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
@@ -31,15 +32,6 @@ class ProductListActivity : AppCompatActivity() {
         binding.recyclerAllProducts.layoutManager = LinearLayoutManager(baseContext)
 
 
-        //Definir Adapter
-        // binding.recyclerAllProducts.adapter = adapter
-
-
-        //recebendo os dados
-        // val product = intent.getParcelableArrayListExtra<Product>("PRODUCTS")
-        // binding.textProductName.text = product.toString()
-
-
         //Evento de Enter no EditText
         binding.editSearch.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -53,8 +45,13 @@ class ProductListActivity : AppCompatActivity() {
     }
 
     fun onClickItem(product: Product) {
+        // TODO: remover println
         println("Clicou")
+        val intent = Intent(this, ItemDetailsActivity::class.java)
+        intent.putExtra("itemProduct", product)
+        startActivity(intent)
     }
+
 
     fun bestSellersByCategory(categoryId: String) {
         val service = MeliApiClient.createCategoryService()
@@ -108,19 +105,19 @@ class ProductListActivity : AppCompatActivity() {
     }
 
 
-
     fun loadProducts(responseAPI: List<ItemProductResponse>?) {
         //converter em lista de produtos
         val products: MutableList<Product> = ArrayList();
 
         if (responseAPI != null) {
-            //iterando a lista de resultados a partir de resposta da API
+            //iterando a lista de resultados a partir da resposta da API
             for (productAPI in responseAPI) {
-                val produto = Product(
+                val product = Product(
+                    productAPI.item.item_id,
                     productAPI.item.item_title,
-                    productAPI.item.item_price, productAPI.item.item_thumbnail, "",
+                    productAPI.item.item_price, productAPI.item.item_thumbnail, ""
                 )
-                products.add(produto)
+                products.add(product)
             }
             binding.recyclerAllProducts.adapter = ProductAdapter(products) { product ->
                 onClickItem(
@@ -132,11 +129,11 @@ class ProductListActivity : AppCompatActivity() {
         }
     }
 
-    fun categoryPredictor(valorDigitado: String) {
+    fun categoryPredictor(searchValue: String) {
         //conectar o Retrofit e faz chamada assíncrona
         val service = MeliApiClient.createCategoryService()
 
-        val call: Call<List<CategoryPredictorResponse>> = service.list(valorDigitado)
+        val call: Call<List<CategoryPredictorResponse>> = service.list(searchValue)
         call.enqueue(object :
             Callback<List<CategoryPredictorResponse>> { //enqueue = colocar na fila
 

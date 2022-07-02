@@ -32,10 +32,11 @@ class ProductAdapter(
         return products.size
     }
 
-    inner class ProductViewHolder (itemView: View, private val onClickItem: (Product) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    inner class ProductViewHolder(itemView: View, private val onClickItem: (Product) -> Unit) :
+        RecyclerView.ViewHolder(itemView) {
 
         init {
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onClickItem(products[absoluteAdapterPosition])
             }
         }

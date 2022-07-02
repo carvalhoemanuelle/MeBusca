@@ -8,14 +8,16 @@ import kotlinx.parcelize.Parceler
 
 @Parcelize
 data class Product(
-    var product_name: String,
-    var product_price: Float,
-    var product_image: String,
+    var product_id: String,
+    val product_name: String,
+    val product_price: Float,
+    val product_image: String,
     var product_description: String,
 
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readFloat(),
         parcel.readString().toString(),
@@ -25,6 +27,7 @@ data class Product(
     companion object : Parceler<Product> {
 
         override fun Product.write(parcel: Parcel, flags: Int) {
+            parcel.writeString(product_id)
             parcel.writeString(product_name)
             parcel.writeFloat(product_price)
             parcel.writeString(product_image)
