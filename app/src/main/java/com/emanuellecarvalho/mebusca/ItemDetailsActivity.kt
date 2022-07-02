@@ -22,6 +22,8 @@ class ItemDetailsActivity : AppCompatActivity() {
         binding = ActivityItemDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true) //show back button
+
 
         val product: Product? = intent.getParcelableExtra<Product>("itemProduct")
         if (product != null) {
@@ -29,7 +31,11 @@ class ItemDetailsActivity : AppCompatActivity() {
             loadDescricao(product)
         }
 
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     private fun loadDescricao(product: Product) {

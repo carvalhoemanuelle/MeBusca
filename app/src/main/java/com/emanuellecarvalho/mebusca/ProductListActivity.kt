@@ -3,6 +3,8 @@ package com.emanuellecarvalho.mebusca
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emanuellecarvalho.mebusca.adapter.ProductAdapter
@@ -16,6 +18,7 @@ import java.util.stream.Collectors
 class ProductListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductListBinding
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,7 @@ class ProductListActivity : AppCompatActivity() {
         //Esconde a barra de navegação
         supportActionBar?.hide()
 
+        progressBar = findViewById(R.id.progressBar)
 
         //Layout da recycler
         binding.recyclerAllProducts.layoutManager = LinearLayoutManager(baseContext)
@@ -35,6 +39,8 @@ class ProductListActivity : AppCompatActivity() {
         //Evento de Enter no EditText
         binding.editSearch.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                cleanProductList()
+                progressBar.visibility = View.VISIBLE
                 categoryPredictor(binding.editSearch.text.toString())
                 return@setOnKeyListener true
             }
@@ -70,6 +76,7 @@ class ProductListActivity : AppCompatActivity() {
                     val productIds = highlightsProduct.content.stream().map { it.product_id }
                         .collect(Collectors.toList())
                     findProducts(productIds)
+                    progressBar.visibility = View.GONE
                 }
 
             }
@@ -127,6 +134,13 @@ class ProductListActivity : AppCompatActivity() {
             binding.recyclerAllProducts.layoutManager = LinearLayoutManager(this)
 
         }
+    }
+
+    fun cleanProductList() {
+        binding.recyclerAllProducts.adapter = ProductAdapter(arrayListOf()) {
+
+        }
+        binding.recyclerAllProducts.layoutManager = LinearLayoutManager(this)
     }
 
     fun categoryPredictor(searchValue: String) {
