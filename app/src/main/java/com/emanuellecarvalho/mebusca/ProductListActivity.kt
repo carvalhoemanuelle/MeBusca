@@ -52,9 +52,7 @@ class ProductListActivity : AppCompatActivity() {
 
     }
 
-    fun onClickItem(product: Product) {
-        // TODO: remover println
-        println("Clicou")
+    private fun onClickItem(product: Product) {
         val intent = Intent(this, ItemDetailsActivity::class.java)
         intent.putExtra("itemProduct", product)
         startActivity(intent)
@@ -83,8 +81,8 @@ class ProductListActivity : AppCompatActivity() {
                         ?.collect(Collectors.toList())
                     if (productIds != null) {
                         findProducts(productIds)
+                        progressBar.visibility = View.GONE
                     }
-                    progressBar.visibility = View.GONE
                 } else {
                     messageErrorUser("Erro interno no servidor blablabla")
                     progressBar.visibility = View.GONE
@@ -118,7 +116,6 @@ class ProductListActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<ItemProductResponse>>, t: Throwable) {
-
             }
 
         })
@@ -149,7 +146,7 @@ class ProductListActivity : AppCompatActivity() {
         }
     }
 
-    fun cleanProductList() {
+    private fun cleanProductList() {
         binding.recyclerAllProducts.adapter = ProductAdapter(arrayListOf()) {
 
         }
@@ -174,21 +171,19 @@ class ProductListActivity : AppCompatActivity() {
                         messageErrorUser("Produto não encontrado. Verifique se a palavra está escrita corretamente.")
                         progressBar.visibility = View.GONE
                     } else {
-                        categories?.get(0)?.let { bestSellersByCategory(it.category_id) }
+                        categories.get(0).let { bestSellersByCategory(it.category_id) }
+                        progressBar.visibility = View.GONE
                     }
                 } else {
-                    messageErrorUser("Erro interno no servidor. Tente novamente mais tarde.")
+                    messageErrorUser("Erro interno no servidor.")
                     progressBar.visibility = View.GONE
                 }
 
             }
 
             override fun onFailure(call: Call<List<CategoryPredictorResponse>>, t: Throwable) {
-                Toast.makeText(
-                    applicationContext,
-                    "Verifique sua conexão de internet",
-                    Toast.LENGTH_LONG
-                ).show()
+                messageErrorUser("Verifique sua conexão de internet.")
+                progressBar.visibility = View.GONE
             }
 
         })
