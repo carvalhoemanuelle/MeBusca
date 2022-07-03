@@ -2,9 +2,11 @@ package com.emanuellecarvalho.mebusca
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emanuellecarvalho.mebusca.adapter.ProductAdapter
@@ -58,6 +60,10 @@ class ProductListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun messageErrorUser(str: String) {
+        Toast.makeText(baseContext, str, Toast.LENGTH_LONG).show()
+    }
+
 
     fun bestSellersByCategory(categoryId: String) {
         val service = MeliApiClient.createCategoryService()
@@ -72,17 +78,24 @@ class ProductListActivity : AppCompatActivity() {
                 response: Response<HighlightsProductResponse>
             ) {
                 val highlightsProduct = response.body()
-                if (highlightsProduct?.content != null) {
-                    val productIds = highlightsProduct.content.stream().map { it.product_id }
-                        .collect(Collectors.toList())
-                    findProducts(productIds)
+                if (response.isSuccessful) {
+                    val productIds = highlightsProduct?.content?.stream()?.map { it.product_id }
+                        ?.collect(Collectors.toList())
+                    if (productIds != null) {
+                        findProducts(productIds)
+                    }
+                    progressBar.visibility = View.GONE
+                } else {
+                    messageErrorUser("Erro interno no servidor blablabla")
                     progressBar.visibility = View.GONE
                 }
 
             }
 
             override fun onFailure(call: Call<HighlightsProductResponse>, t: Throwable) {
-                val s = ""
+                Toast.makeText(baseContext, "Produto não encontrado", Toast.LENGTH_LONG).show()
+                progressBar.visibility = View.GONE
+
             }
 
         })
@@ -105,7 +118,7 @@ class ProductListActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<ItemProductResponse>>, t: Throwable) {
-                val s = ""
+
             }
 
         })
@@ -155,13 +168,27 @@ class ProductListActivity : AppCompatActivity() {
                 call: Call<List<CategoryPredictorResponse>>,
                 response: Response<List<CategoryPredictorResponse>>
             ) {
-                // TODO: ver nullsafety
-                val categories = response.body()
-                categories?.get(0)?.let { bestSellersByCategory(it.category_id) }
+                if (response.isSuccessful) {
+                    val categories = response.body()
+                    if (categories?.isEmpty()!!) {
+                        messageErrorUser("Produto não encontrado. Verifique se a palavra está escrita corretamente.")
+                        progressBar.visibility = View.GONE
+                    } else {
+                        categories?.get(0)?.let { bestSellersByCategory(it.category_id) }
+                    }
+                } else {
+                    messageErrorUser("Erro interno no servidor. Tente novamente mais tarde.")
+                    progressBar.visibility = View.GONE
+                }
+
             }
 
             override fun onFailure(call: Call<List<CategoryPredictorResponse>>, t: Throwable) {
-                val s = ""
+                Toast.makeText(
+                    applicationContext,
+                    "Verifique sua conexão de internet",
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
         })
