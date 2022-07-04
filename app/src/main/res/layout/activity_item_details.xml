@@ -24,21 +24,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
-
     <TextView
         android:id="@+id/text_product_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
         android:layout_marginStart="22dp"
-        android:fontFamily="@font/montserrat_alternates"
+        android:fontFamily="@font/raleway"
         android:text="Nome do Produto"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -62,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
-        android:fontFamily="@font/montserrat_alternates"
+        android:fontFamily="@font/raleway"
         android:text="RS 7.000,00"
         android:textColor="@color/black"
         android:textSize="28sp"
@@ -83,6 +75,7 @@
         android:backgroundTint="@color/white"
         android:drawableLeft="@drawable/ic_baseline_favorite"
         android:text="Adicionar aos favoritos"
+        android:fontFamily="@font/raleway"
         android:textAllCaps="false"
         android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +86,7 @@
         android:id="@+id/text_product_description_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_alternates"
+        android:fontFamily="@font/raleway"
         android:padding="22dp"
         android:text="@string/textItemDescription"
         app:layout_constraintEnd_toEndOf="parent"
