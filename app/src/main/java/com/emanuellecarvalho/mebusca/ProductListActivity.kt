@@ -2,7 +2,6 @@ package com.emanuellecarvalho.mebusca
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.ProgressBar
@@ -29,7 +28,6 @@ class ProductListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        //Esconde a barra de navegação
         supportActionBar?.hide()
 
         progressBar = findViewById(R.id.progressBar)
@@ -41,10 +39,16 @@ class ProductListActivity : AppCompatActivity() {
         //Evento de Enter no EditText
         binding.editSearch.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                cleanProductList()
-                progressBar.visibility = View.VISIBLE
-                categoryPredictor(binding.editSearch.text.toString())
-                return@setOnKeyListener true
+                if(validateInput(binding.editSearch.text.toString())) {
+                    cleanProductList()
+                    progressBar.visibility = View.VISIBLE
+                    categoryPredictor(binding.editSearch.text.toString())
+                    return@setOnKeyListener true
+                }
+                else  {
+                    Toast.makeText(this, "Digite um produto válido", Toast.LENGTH_LONG).show()
+                }
+
             }
             return@setOnKeyListener false
         }
@@ -58,12 +62,30 @@ class ProductListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun messageErrorUser(str: String) {
+    private fun messageErrorUser(str: String) {
         Toast.makeText(baseContext, str, Toast.LENGTH_LONG).show()
     }
 
+    private fun cleanProductList() {
+        binding.recyclerAllProducts.adapter = ProductAdapter(arrayListOf()) {
 
-    fun bestSellersByCategory(categoryId: String) {
+        }
+        binding.recyclerAllProducts.layoutManager = LinearLayoutManager(this)
+    }
+
+
+   fun validateInput(searchValue: String): Boolean{
+        if (searchValue == "") {
+            return false
+        }
+        if(searchValue.length < 3) {
+            return false
+        }
+        return true
+    }
+
+
+    private fun bestSellersByCategory(categoryId: String) {
         val service = MeliApiClient.createCategoryService()
 
         val callBestSeller: Call<HighlightsProductResponse> =
@@ -122,9 +144,9 @@ class ProductListActivity : AppCompatActivity() {
     }
 
 
-    fun loadProducts(responseAPI: List<ItemProductResponse>?) {
+    private fun loadProducts(responseAPI: List<ItemProductResponse>?) {
         //converter em lista de produtos
-        val products: MutableList<Product> = ArrayList();
+        val products: MutableList<Product> = ArrayList()
 
         if (responseAPI != null) {
             //iterando a lista de resultados a partir da resposta da API
@@ -146,14 +168,8 @@ class ProductListActivity : AppCompatActivity() {
         }
     }
 
-    private fun cleanProductList() {
-        binding.recyclerAllProducts.adapter = ProductAdapter(arrayListOf()) {
 
-        }
-        binding.recyclerAllProducts.layoutManager = LinearLayoutManager(this)
-    }
-
-    fun categoryPredictor(searchValue: String) {
+    private fun categoryPredictor(searchValue: String) {
         //conectar o Retrofit e faz chamada assíncrona
         val service = MeliApiClient.createCategoryService()
 

@@ -14,7 +14,7 @@ data class Product(
     val product_image: String,
     var product_description: String,
 
-) : Parcelable {
+    ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),

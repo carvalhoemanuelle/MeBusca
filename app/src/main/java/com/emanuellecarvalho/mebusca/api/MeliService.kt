@@ -8,11 +8,10 @@ import retrofit2.http.Query
 
 
 const val ACCESS_TOKEN: String =
-    "APP_USR-3463946509863582-070407-c275ed17637b8ec03903f5c07125efd7-238875989"
+    "APP_USR-3463946509863582-070414-d46febbeaf2f5cffb1b2c8928da881a7-238875989"
 
 
 interface CategoryService {
-    //TODO a cada 6h alterar o access token em todas as requisições
     @Headers("Authorization: Bearer $ACCESS_TOKEN")
     @GET("sites/MLB/domain_discovery/search?limit=1")
     fun list(@Query("q") categoryPartName: String): Call<List<CategoryPredictorResponse>>

@@ -1,98 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ItemDetailsActivity">
+    android:fillViewport="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MeBusca.AppBarOverlay"
-        tools:ignore="MissingConstraints">
+        tools:context=".ItemDetailsActivity">
 
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/yellow"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back"
-            app:popupTheme="@style/Theme.MeBusca.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <TextView
-        android:id="@+id/text_product_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:layout_marginStart="22dp"
-        android:fontFamily="@font/raleway"
-        android:text="Nome do Produto"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="22dp" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/image_product_detail"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="118dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.037"
-        tools:src="@drawable/car_photo" />
-
-    <TextView
-        android:id="@+id/text_product_price_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:fontFamily="@font/raleway"
-        android:text="RS 7.000,00"
-        android:textColor="@color/black"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_product_detail"
-        app:layout_constraintVertical_bias="0.059" />
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:theme="@style/Theme.MeBusca.AppBarOverlay"
+            tools:ignore="MissingConstraints">
 
 
-    <Button
-        android:id="@+id/button_add_favorites_products"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
-        android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/ic_baseline_favorite"
-        android:text="Adicionar aos favoritos"
-        android:fontFamily="@font/raleway"
-        android:textAllCaps="false"
-        android:textColor="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/yellow"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back"
+                app:popupTheme="@style/Theme.MeBusca.PopupOverlay" />
 
-    <TextView
-        android:id="@+id/text_product_description_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/raleway"
-        android:padding="22dp"
-        android:text="@string/textItemDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_add_favorites_products" />
+        </com.google.android.material.appbar.AppBarLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_product_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="68dp"
+            android:fontFamily="@font/raleway"
+            android:text="@string/productName"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="22dp" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_product_detail"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="118dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.037"
+            tools:src="@drawable/car_photo" />
+
+        <TextView
+            android:id="@+id/text_product_price_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:fontFamily="@font/raleway"
+            android:text="RS 7.000,00"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_product_detail"
+            app:layout_constraintVertical_bias="0.059" />
+
+
+        <Button
+            android:id="@+id/button_add_favorites_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="480dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/ic_baseline_favorite"
+            android:fontFamily="@font/raleway"
+            android:text="@string/addFavorites"
+            android:textAllCaps="false"
+            android:textColor="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/text_product_description_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway"
+            android:padding="22dp"
+            android:text="@string/textItemDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_add_favorites_products" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
