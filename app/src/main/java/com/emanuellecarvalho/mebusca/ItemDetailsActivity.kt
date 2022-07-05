@@ -81,7 +81,9 @@ class ItemDetailsActivity : AppCompatActivity() {
 
 
 
-
+    /**
+     * Get the description product and pass to Item Details Activity
+     * */
     private fun loadDescription(product: Product) {
 
         val service = MeliApiClient.createCategoryService()

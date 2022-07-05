@@ -8,10 +8,10 @@ class FavoritesPreferences (context: Context){
 
     private val ID_PRODUCT: String = "ID_PRODUCT_FAV"
 
-    private val APP_PREF_1 = "appPrefOne"
+    private val APP_PREF_ONE = "appPrefOne"
 
     private val preferences: SharedPreferences =
-        context.getSharedPreferences(APP_PREF_1, Context.MODE_PRIVATE)
+        context.getSharedPreferences(APP_PREF_ONE, Context.MODE_PRIVATE)
 
 
     /**
@@ -23,14 +23,14 @@ class FavoritesPreferences (context: Context){
     }
 
     /**
-     * If a product ID is not contained as a Favorite, then the ID will be added
+     * If a product ID is not contained as a Favorite, then the ID can be added
      */
     fun add(productId: String) {
         preferences.edit().putString(ID_PRODUCT, productId).commit()
     }
 
     /**
-     * If a product ID is contained as a Favorite, will be removed
+     * If a product ID is contained as a Favorite, can be removed
      */
     fun remove(productId: String) {
         preferences.edit().remove(ID_PRODUCT).commit()

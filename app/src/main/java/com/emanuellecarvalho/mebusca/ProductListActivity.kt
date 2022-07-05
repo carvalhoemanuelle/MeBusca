@@ -27,7 +27,6 @@ class ProductListActivity : AppCompatActivity() {
         binding = ActivityProductListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         supportActionBar?.hide()
 
         progressBar = findViewById(R.id.progressBar)
@@ -39,13 +38,12 @@ class ProductListActivity : AppCompatActivity() {
         //Evento de Enter no EditText
         binding.editSearch.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                if(validateInput(binding.editSearch.text.toString())) {
+                if (validateInput(binding.editSearch.text.toString())) {
                     cleanProductList()
                     progressBar.visibility = View.VISIBLE
-                    categoryPredictor(binding.editSearch.text.toString())
+                    getProductCategory(binding.editSearch.text.toString())
                     return@setOnKeyListener true
-                }
-                else  {
+                } else {
                     Toast.makeText(this, "Digite um produto válido", Toast.LENGTH_LONG).show()
                 }
 
@@ -56,94 +54,11 @@ class ProductListActivity : AppCompatActivity() {
 
     }
 
-    private fun onClickItem(product: Product) {
-        val intent = Intent(this, ItemDetailsActivity::class.java)
-        intent.putExtra("itemProduct", product)
-        startActivity(intent)
-    }
 
-    private fun messageErrorUser(str: String) {
-        Toast.makeText(baseContext, str, Toast.LENGTH_LONG).show()
-    }
-
-    private fun cleanProductList() {
-        binding.recyclerAllProducts.adapter = ProductAdapter(arrayListOf()) {
-
-        }
-        binding.recyclerAllProducts.layoutManager = LinearLayoutManager(this)
-    }
-
-
-   fun validateInput(searchValue: String): Boolean{
-        if (searchValue == "") {
-            return false
-        }
-        if(searchValue.length < 3) {
-            return false
-        }
-        return true
-    }
-
-
-    private fun bestSellersByCategory(categoryId: String) {
-        val service = MeliApiClient.createCategoryService()
-
-        val callBestSeller: Call<HighlightsProductResponse> =
-            service.highlightsItemList(categoryId)
-
-        callBestSeller.enqueue(object :
-            Callback<HighlightsProductResponse> { //enqueue = colocar na fila
-            override fun onResponse(
-                call: Call<HighlightsProductResponse>,
-                response: Response<HighlightsProductResponse>
-            ) {
-                val highlightsProduct = response.body()
-                if (response.isSuccessful) {
-                    val productIds = highlightsProduct?.content?.stream()?.map { it.product_id }
-                        ?.collect(Collectors.toList())
-                    if (productIds != null) {
-                        findProducts(productIds)
-                        progressBar.visibility = View.GONE
-                    }
-                } else {
-                    messageErrorUser("Erro interno no servidor arma bla")
-                    progressBar.visibility = View.GONE
-                }
-
-            }
-
-            override fun onFailure(call: Call<HighlightsProductResponse>, t: Throwable) {
-                Toast.makeText(baseContext, "Produto não encontrado", Toast.LENGTH_LONG).show()
-                progressBar.visibility = View.GONE
-
-            }
-
-        })
-
-    }
-
-    private fun findProducts(productIds: List<String>) {
-
-        val service = MeliApiClient.createCategoryService()
-        val ids = productIds.joinToString(",")
-
-        val call: Call<List<ItemProductResponse>> = service.itemList(ids)
-        call.enqueue(object : Callback<List<ItemProductResponse>> { //enqueue = colocar na fila
-            override fun onResponse(
-                call: Call<List<ItemProductResponse>>,
-                response: Response<List<ItemProductResponse>>
-            ) {
-                val productsAPI: List<ItemProductResponse>? = response.body()
-                loadProducts(productsAPI)
-            }
-
-            override fun onFailure(call: Call<List<ItemProductResponse>>, t: Throwable) {
-            }
-
-        })
-    }
-
-
+    /**
+     * Get the product details by item ID and convert the API return in a list of
+     * products and pass to RecyclerView
+     * */
     private fun loadProducts(responseAPI: List<ItemProductResponse>?) {
         //converter em lista de produtos
         val products: MutableList<Product> = ArrayList()
@@ -168,14 +83,82 @@ class ProductListActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Receive product ID and get the details of the type item
+     * */
+    private fun getItemDetails(productIds: List<String>) {
 
-    private fun categoryPredictor(searchValue: String) {
+        val service = MeliApiClient.createCategoryService()
+        val ids = productIds.joinToString(",")
+
+        val call: Call<List<ItemProductResponse>> = service.itemList(ids)
+        call.enqueue(object : Callback<List<ItemProductResponse>> {
+            override fun onResponse(
+                call: Call<List<ItemProductResponse>>,
+                response: Response<List<ItemProductResponse>>
+            ) {
+                val productsAPI: List<ItemProductResponse>? = response.body()
+                loadProducts(productsAPI)
+            }
+
+            override fun onFailure(call: Call<List<ItemProductResponse>>, t: Throwable) {
+            }
+
+        })
+    }
+
+
+    /**
+     * Get the category ID to the highlight products of Mercado Livre
+     * */
+    private fun getHighlightsByCategory(categoryId: String) {
+        val service = MeliApiClient.createCategoryService()
+
+        val callBestSeller: Call<HighlightsProductResponse> =
+            service.highlightsItemList(categoryId)
+
+        callBestSeller.enqueue(object :
+            Callback<HighlightsProductResponse> { //enqueue = colocar na fila
+            override fun onResponse(
+                call: Call<HighlightsProductResponse>,
+                response: Response<HighlightsProductResponse>
+            ) {
+                val highlightsProduct = response.body()
+                if (response.isSuccessful) {
+                    val productIds = highlightsProduct?.content?.stream()?.map { it.product_id }
+                        ?.collect(Collectors.toList())
+                    if (productIds != null) {
+                        getItemDetails(productIds)
+                        progressBar.visibility = View.GONE
+                    }
+                } else {
+                    messageErrorUser("Produto não encontrado.")
+                    progressBar.visibility = View.GONE
+                }
+
+            }
+
+            override fun onFailure(call: Call<HighlightsProductResponse>, t: Throwable) {
+                messageErrorUser("Produto não encontrado.")
+                progressBar.visibility = View.GONE
+
+            }
+
+        })
+
+    }
+
+
+    /** get the value entered in the query only one item by category
+     * and list the highlight products to RecyclerView
+     * */
+    private fun getProductCategory(searchValue: String) {
         //conectar o Retrofit e faz chamada assíncrona
         val service = MeliApiClient.createCategoryService()
 
         val call: Call<List<CategoryPredictorResponse>> = service.list(searchValue)
         call.enqueue(object :
-            Callback<List<CategoryPredictorResponse>> { //enqueue = colocar na fila
+            Callback<List<CategoryPredictorResponse>> { //enqueue = coloca na fila
 
             override fun onResponse(
                 call: Call<List<CategoryPredictorResponse>>,
@@ -185,9 +168,10 @@ class ProductListActivity : AppCompatActivity() {
                     val categories = response.body()
                     if (categories?.isEmpty()!!) {
                         messageErrorUser("Produto não encontrado. Verifique se a palavra está escrita corretamente.")
+
                         progressBar.visibility = View.GONE
                     } else {
-                        categories.get(0).let { bestSellersByCategory(it.category_id) }
+                        categories.get(0).let { getHighlightsByCategory(it.category_id) }
                         progressBar.visibility = View.GONE
                     }
                 } else {
@@ -205,5 +189,31 @@ class ProductListActivity : AppCompatActivity() {
         })
     }
 
+    private fun onClickItem(product: Product) {
+        val intent = Intent(this, ItemDetailsActivity::class.java)
+        intent.putExtra("itemProduct", product)
+        startActivity(intent)
+    }
 
+    private fun messageErrorUser(str: String) {
+        Toast.makeText(baseContext, str, Toast.LENGTH_LONG).show()
+    }
+
+    private fun cleanProductList() {
+        binding.recyclerAllProducts.adapter = ProductAdapter(arrayListOf()) {
+
+        }
+        binding.recyclerAllProducts.layoutManager = LinearLayoutManager(this)
+    }
+
+
+    fun validateInput(searchValue: String): Boolean {
+        if (searchValue == "") {
+            return false
+        }
+        if (searchValue.length < 3) {
+            return false
+        }
+        return false
+    }
 }
