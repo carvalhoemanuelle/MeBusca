@@ -106,7 +106,7 @@ class ProductListActivity : AppCompatActivity() {
                         progressBar.visibility = View.GONE
                     }
                 } else {
-                    messageErrorUser("Erro interno no servidor blablabla")
+                    messageErrorUser("Erro interno no servidor arma bla")
                     progressBar.visibility = View.GONE
                 }
 

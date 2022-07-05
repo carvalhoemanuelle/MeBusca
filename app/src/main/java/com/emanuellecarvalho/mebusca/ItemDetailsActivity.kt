@@ -1,8 +1,8 @@
 package com.emanuellecarvalho.mebusca
 
-import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import com.emanuellecarvalho.mebusca.api.ItemProductDescriptionResponse
@@ -36,19 +36,46 @@ class ItemDetailsActivity : AppCompatActivity() {
         if (product != null) {
             loadDescription(product)
            if(!favoritesPreferences.contains(product.product_id))  {
-               binding.buttonAddFavoritesProducts.setOnClickListener{
+               addFavoriteButton(product)
+
+            /*   binding.buttonAddFavoritesProducts.setOnClickListener{
                    favoritesPreferences.add(product.product_id)
                    println("Adicionou")
-               }
+               }*/
            } else {
-               binding.buttonAddFavoritesProducts.text = "Remover dos favoritos"
+               removeFavoriteButton(product)
+              /* binding.buttonAddFavoritesProducts.text = "Remover dos favoritos"
                binding.buttonAddFavoritesProducts.setOnClickListener {
                    favoritesPreferences.remove(product.product_id)
-               }
+               }*/
            }
 
         }
 
+    }
+
+    private fun addFavoriteButton(product: Product){
+        val drawableFilled = R.drawable.ic_baseline_favorite_filled
+
+        binding.buttonAddFavoritesProducts.text = "Remover dos favoritos"
+        binding.buttonAddFavoritesProducts.setCompoundDrawablesWithIntrinsicBounds(drawableFilled, 0, 0, 0)
+        binding.buttonAddFavoritesProducts.setOnClickListener{
+            favoritesPreferences.add(product.product_id)
+            removeFavoriteButton(product)
+
+        }
+
+    }
+
+
+    private fun removeFavoriteButton(product: Product) {
+        val drawableEmpty = R.drawable.ic_baseline_favorite
+        binding.buttonAddFavoritesProducts.text = "Adicionar aos favoritos"
+        binding.buttonAddFavoritesProducts.setCompoundDrawablesWithIntrinsicBounds(drawableEmpty, 0, 0, 0)
+        binding.buttonAddFavoritesProducts.setOnClickListener {
+            favoritesPreferences.remove(product.product_id)
+            addFavoriteButton(product)
+        }
     }
 
 
@@ -83,14 +110,10 @@ class ItemDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun saveFavorites(product: Product) {
-        favoritesPreferences.add(product.product_id)
-    }
-
     private fun loadProductDetails(product: Product?) {
         binding.textProductDetail.text = product?.product_name
         binding.textProductPriceDetail.text = "R$ " + product?.product_price.toString()
-        val imageProductDetail: AppCompatImageView = binding.imageProductDetail;
+        val imageProductDetail: AppCompatImageView = binding.imageProductDetail
         Picasso.get().load(product?.product_image).into(imageProductDetail)
         binding.textProductDescriptionDetail.text = product?.product_description
 
