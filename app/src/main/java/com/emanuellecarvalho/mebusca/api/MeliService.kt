@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 
 const val ACCESS_TOKEN: String =
-    "APP_USR-3463946509863582-070414-d46febbeaf2f5cffb1b2c8928da881a7-238875989"
+    "APP_USR-3463946509863582-070509-db42aac4134fcd74b8aa9d9e44c4be6b-238875989"
 
 
 interface CategoryService {

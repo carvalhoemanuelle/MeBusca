@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.app.TaskStackBuilder
 import com.emanuellecarvalho.mebusca.api.ItemProductDescriptionResponse
 import com.emanuellecarvalho.mebusca.api.MeliApiClient
 import com.emanuellecarvalho.mebusca.databinding.ActivityItemDetailsBinding
@@ -18,8 +17,7 @@ import retrofit2.Response
 class ItemDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityItemDetailsBinding
-
-
+    private lateinit var favoritesPreferences: FavoritesPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,31 +26,41 @@ class ItemDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonAddFavoritesProducts.setOnClickListener {
-            saveFavorites()
+
         }
 
+        //instanciando o SharedPreferences
+        favoritesPreferences = FavoritesPreferences(this)
 
         val product: Product? = intent.getParcelableExtra<Product>("itemProduct")
         if (product != null) {
             loadDescription(product)
-        }
+           if(!favoritesPreferences.contains(product.product_id))  {
+               binding.buttonAddFavoritesProducts.setOnClickListener{
+                   favoritesPreferences.add(product.product_id)
+                   println("Adicionou")
+               }
+           } else {
+               binding.buttonAddFavoritesProducts.text = "Remover dos favoritos"
+               binding.buttonAddFavoritesProducts.setOnClickListener {
+                   favoritesPreferences.remove(product.product_id)
+               }
+           }
 
-        val preferencesOne = getSharedPreferences("CAIXA_UM", Context.MODE_PRIVATE)
-        preferencesOne.edit().putString("ID_PRODUTO", "10").commit()
-
-        val productIdPreference: String? = preferencesOne.getString("ID_PRODUTO", "Não encontrado")
-        if (productIdPreference != null) {
-            Log.d("MANU", productIdPreference)
         }
 
     }
+
+
+
+
 
     private fun loadDescription(product: Product) {
 
         val service = MeliApiClient.createCategoryService()
 
         val call: Call<ItemProductDescriptionResponse> = service.itemDescription(product.product_id)
-        call.enqueue(object : Callback<ItemProductDescriptionResponse> { //enqueue = colocar na fila
+        call.enqueue(object : Callback<ItemProductDescriptionResponse> {
             override fun onResponse(
                 call: Call<ItemProductDescriptionResponse>,
                 response: Response<ItemProductDescriptionResponse>
@@ -75,8 +83,8 @@ class ItemDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun saveFavorites() {
-
+    private fun saveFavorites(product: Product) {
+        favoritesPreferences.add(product.product_id)
     }
 
     private fun loadProductDetails(product: Product?) {
