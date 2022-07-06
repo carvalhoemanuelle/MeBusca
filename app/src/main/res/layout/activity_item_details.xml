@@ -26,7 +26,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/yellow"
-                app:navigationIcon="@drawable/ic_baseline_arrow_back"
+                app:titleMarginStart="-38dp"
+                app:title="Informe seu CEP"
+                app:titleTextColor="@color/black"
+                app:navigationIcon="@drawable/ic_outline_location"
                 app:popupTheme="@style/Theme.MeBusca.PopupOverlay" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -62,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
+            android:layout_marginBottom="28dp"
             android:fontFamily="@font/raleway"
             android:text="RS 7.000,00"
             android:textColor="@color/black"
