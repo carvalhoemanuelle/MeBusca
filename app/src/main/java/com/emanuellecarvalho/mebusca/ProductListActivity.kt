@@ -168,7 +168,6 @@ class ProductListActivity : AppCompatActivity() {
                     val categories = response.body()
                     if (categories?.isEmpty()!!) {
                         messageErrorUser("Produto não encontrado. Verifique se a palavra está escrita corretamente.")
-
                         progressBar.visibility = View.GONE
                     } else {
                         categories.get(0).let { getHighlightsByCategory(it.category_id) }

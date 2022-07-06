@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".ProductListActivity">
 
 
@@ -22,19 +23,18 @@
             android:background="@drawable/rounded_edittext"
             android:drawablePadding="6dp"
             android:hint="@string/txtSearch"
-            android:textColorHint="@color/gray"
-            android:inputType="text"
-            android:textColor="@color/gray"
-            android:padding="12dp"
             android:imeOptions="actionSearch"
-            app:drawableStartCompat="@drawable/ic_launcher_search"/>
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
+            app:drawableStartCompat="@drawable/ic_launcher_search" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/yellow"
-            app:navigationIcon="@drawable/ic_baseline_menu"
             app:popupTheme="@style/Theme.MeBusca.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -44,14 +44,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        app:indicatorColor="@color/white"
-        app:trackColor="@color/blue"
         android:visibility="gone"
-        app:trackCornerRadius="10dp"
+        app:indicatorColor="@color/light_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="@color/blue"
+        app:trackCornerRadius="10dp" />
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -40,53 +40,6 @@ data class Product(
     }
 }
 
-/*
-fun listaTeste(): MutableList<Product> {
-    val bola = Product(
-        "Bola de futebol",
-        2.4,
-        "Uma bola de futebola amarela e branca",
-        "https://img.freepik.com/vetores-gratis/imagem-preta-branca-realistica-da-bola-de-futebol_1284-8506.jpg?w=2000"
-    )
-
-    val bolaFutebol = Product(
-        "Bola de tênis",
-        4.8,
-        "Seis bolas de tênis na cor verde-limão",
-        "https://img.freepik.com/fotos-gratis/seis-bolas-de-tenis-em-simetria_23-2147661821.jpg?w=2000"
-    )
-
-    val bolaBasquete = Product(
-        "Bola de basquete",
-        8.7,
-        "Uma bola de basquete laranja com listas pretas",
-        "https://img.freepik.com/psd-gratuitas/maquete-de-bola-de-basquete_35913-2166.jpg?w=2000"
-    )
-
-    val bolaVolei = Product(
-        "Bola de vôlei",
-        10.9,
-        "Uma bola de vôlei nas cores amarela, branca e azul. Edição limitada",
-        "https://img.freepik.com/fotos-gratis/posicao-plana-do-volei-na-areia-da-praia_23-2148662653.jpg?w=2000"
-    )
-    val bolaBasqueteB = Product(
-        "Bola de basquete",
-        8.7,
-        "Uma bola de basquete laranja com listas pretas",
-        "https://img.freepik.com/psd-gratuitas/maquete-de-bola-de-basquete_35913-2166.jpg?w=2000"
-    )
-
-    val bolaVoleiC = Product(
-        "Bola de vôlei",
-        10.9,
-        "Uma bola de vôlei nas cores amarela, branca e azul. Edição limitada",
-        "https://img.freepik.com/fotos-gratis/posicao-plana-do-volei-na-areia-da-praia_23-2148662653.jpg?w=2000"
-    )
-
-    return mutableListOf(bola, bolaFutebol, bolaBasquete, bolaVolei, bolaBasqueteB, bolaVoleiC)
-}
-
-*/
 
 
 

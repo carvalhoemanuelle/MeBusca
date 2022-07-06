@@ -12,5 +12,7 @@
     </string>
     <string name="productName">Nome do Produto</string>
     <string name="addFavorites">Adicionar aos favoritos</string>
+    <string name="list_product">Produto</string>
+    <string name="price">RS 2.000,00</string>
 
 </resources>
