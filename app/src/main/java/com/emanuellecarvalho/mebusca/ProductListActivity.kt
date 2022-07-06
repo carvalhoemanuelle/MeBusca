@@ -214,6 +214,6 @@ class ProductListActivity : AppCompatActivity() {
         if (searchValue.length < 3) {
             return false
         }
-        return false
+        return true
     }
 }
