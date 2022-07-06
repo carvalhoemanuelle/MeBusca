@@ -27,6 +27,8 @@ class ProductListActivity : AppCompatActivity() {
         binding = ActivityProductListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val inputValidator: InputValidator = InputValidator()
+
         supportActionBar?.hide()
 
         progressBar = findViewById(R.id.progressBar)
@@ -38,7 +40,7 @@ class ProductListActivity : AppCompatActivity() {
         //Evento de Enter no EditText
         binding.editSearch.setOnKeyListener { _, keyCode, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                if (validateInput(binding.editSearch.text.toString())) {
+                if (inputValidator.validateInput(binding.editSearch.text.toString())) {
                     cleanProductList()
                     progressBar.visibility = View.VISIBLE
                     getProductCategory(binding.editSearch.text.toString())
@@ -206,13 +208,5 @@ class ProductListActivity : AppCompatActivity() {
     }
 
 
-    fun validateInput(searchValue: String): Boolean {
-        if (searchValue == "") {
-            return false
-        }
-        if (searchValue.length < 3) {
-            return false
-        }
-        return true
-    }
+
 }
